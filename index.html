@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>读取爬取列表</title>
+    <meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no"/>
+    <meta name="description" content="demo" />
+    <!-- <script type="text/javascript" src="pa.js"></script> -->
+</head>
+<body>
+    <div id="nativeShare"><button onclick="donw()">点击下载</button></div>
+    <script>
+        function donw(){
+            ajaxUse("http://192.168.5.147:6767",'get',function(data){
+                if(data){
+                    setTimeout(function(){
+                        //拿读取数据的信息
+                        ajaxUse("http://192.168.5.147:6767/getList",'get',function(data){
+                            console.log(data)
+                        })
+                    },2000)
+                    
+                }
+            })
+        }
+        function ajaxUse(url,methods,callback){
+            var xhr = new XMLHttpRequest;//第一步
+            xhr.open(methods,url);//第二步
+            xhr.send();//第三步
+            xhr.addEventListener('readystatechange',function(data){
+                // console.log(xhr.responseText)
+                // var res=JSON.parse(xhr.responseText)
+                callback(xhr.responseText)
+            })
+        }
+
+       // console.log(init())
+    </script>
+</body>
+</html>
